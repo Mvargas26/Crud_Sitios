@@ -14,16 +14,11 @@
     <!--                                                   *** Barra Navegacion ***  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a href="#" class="navbar-brand">Agenda</a>
-    
-        <ul class="navbar-nav">
-            <li class="nav-item"> 
-                <form class="form-inline" id="frmBuscar">
-                    <input type="search" id="search" class="form-control mr-sm-2" placeholder="Ingrese un nombre">
-                    <button class="btn btn-success my-2 my-sm-0" type="submit">
-                        Buscar
-                    </button>
+        <ul class="navbar-nav ml-auto">
+                <form class="form-inline my-2 my-lg-0" id="frmBuscar">
+                        <input type="search" id="search" class="form-control mr-sm-2" placeholder="Ingrese un nombre">
+                        <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
-            </li>
         </ul>
     </nav>
     
@@ -36,25 +31,25 @@
                         <form id="agendaForm">
                             <input type="hidden" id="salvarID" name="salvarID">
                             <div class="form-group p-2">
-                                <input type="text" id="nombre" placeholder="Nombre" class="form-control">
+                                <input type="text" id="nombre" placeholder="Nombre" class="form-control" required>
                             </div>
                             <div class="form-group p-2">
-                                <input type="text" id="apellidos" placeholder="Apellidos" class="form-control">
+                                <input type="text" id="apellidos" placeholder="Apellidos" class="form-control" required>
                             </div>
                             <div class="form-group p-2">
-                                <input type="text" id="direccion" placeholder="Direccion" class="form-control">
+                                <input type="text" id="direccion" placeholder="Direccion" class="form-control" required>
                             </div>
                             <div class="form-group p-2">
-                                <input type="text" id="telefono" placeholder="Telefono" class="form-control">
+                                <input type="number" id="telefono" placeholder="Telefono" class="form-control" required>
                             </div>
                             <div class="form-group p-2">
-                                <input type="text" id="edad" placeholder="Edad" class="form-control">
+                                <input type="number" id="edad" placeholder="Edad" class="form-control" required>
                             </div>
                             <div class="form-group p-2">
-                                <input type="text" id="altura" placeholder="Altura" class="form-control">
+                                <input type="number" id="altura" placeholder="Altura" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-primary"> Guardar</button>
-                            <button type="submit" id="btnLimpiar" class=" btn btn-primary fa-solid fa-reply"> </button>
+                            <button type="button" id="btnLimpiar" class=" btn btn-primary fa-solid fa-reply"> </button>
                         </form>
                     </div>
                 </div>

@@ -4,33 +4,38 @@ $(document).ready(function () {
 
     // *** VARIABLES ***
     let deseaEditar = false;
-   
-
-
+       
     //funcion para que en el formulario de buscar verifique x cada letra coincidencias
-    $('#search').keyup(function (e) {
-        if ($('#search').val())    // si hay un valor en #search hace la busqueda
-        {
-            let resultadoBusqueda = $('#search').val();
-            $.ajax({
-                url: 'App/buscar.php',
-                type: 'POST',
-                data: { resultadoBusqueda },
-                success: function (response) {
-                    //console.log(response);
-                    let contactos = JSON.parse(response);
-                    let template = '';
-                    contactos.forEach(contacto => {
-                        template += `<li>${contacto.nombre}</li>`
-                    });
-
-                    //selecciono el elemento #contactoResult que es un car y lo lleno con esta plantilla
-                    $('#contactoResult').html(template);
-                    $('#contactoResult').show();
-                }
-            })
+    $("#search").on("input", function(e) {
+        var searchTerm = $(this).val().trim();
+    
+        // Verifica si el campo de búsqueda está vacío
+        if (searchTerm === "") {
+          $("#contactoResult").hide(); // Oculta el contenedor si está vacío
+        } else {
+            if ($('#search').val())    // si hay un valor en #search hace la busqueda
+            {
+                let resultadoBusqueda = $('#search').val();
+                $.ajax({
+                    url: 'App/buscar.php',
+                    type: 'POST',
+                    data: { resultadoBusqueda },
+                    success: function (response) {
+                        //console.log(response);
+                        let contactos = JSON.parse(response);
+                        let template = '';
+                        contactos.forEach(contacto => {
+                            template += `<li>${contacto.nombre}</li>`
+                        });
+    
+                        //selecciono el elemento #contactoResult que es un car y lo lleno con esta plantilla
+                        $('#contactoResult').html(template);
+                        $('#contactoResult').show();
+                    }
+                })
+            }
         }
-    })//fin buscar
+      });
 
     //Capturando evento submit del formulario agendaForm
     $('#agendaForm').submit(function (e) {
@@ -136,11 +141,8 @@ $(document).ready(function () {
             );
     });//fin click a editar
 
-    $(document).click('#btnLimpiar',function (e) { 
-
+    $('#btnLimpiar').click(function () { 
         $('#agendaForm').trigger('reset');//reseta el formulario, sea borra los campos
         deseaEditar = false;
-        e.preventDefault();
-
     });
 });//fin document.ready
