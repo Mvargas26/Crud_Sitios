@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud Agenda</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/964c59f858.js" crossorigin="anonymous"></script>
+    </head>
+
+<body>
+    <!--                                                   *** Barra Navegacion ***  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a href="#" class="navbar-brand">Agenda</a>
+    
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"> 
+                <form class="form-inline my-2 my-lg-0">
+                    <input type="search" id="search" class="form-control mr-sm-2" placeholder="Ingrese un nombre">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">
+                        Buscar
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="container p-4">
+        <div class="row">
+            <!--                                                   *** Formulario datos agendaForm***  -->
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="agendaForm">
+                            <div class="form-group p-2">
+                                <input type="text" id="nombre" placeholder="Nombre" class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="text" id="apellidos" placeholder="Apellidos" class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="text" id="direccion" placeholder="Direccion" class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="text" id="telefono" placeholder="Telefono" class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="text" id="edad" placeholder="Edad" class="form-control">
+                            </div>
+                            <div class="form-group p-2">
+                                <input type="text" id="altura" placeholder="Altura" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary"> Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <!--                                          *** Tarjeta que sale del Buscar***  -->
+                <div class="card my-4" id="contactoResult">
+                    <div class="card-body">
+                        <ul id="container"></ul>
+                    </div>
+                </div>
+                <!--                                                   *** Tabla Grande***  -->
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <td>Nombre</td>
+                            <td>Apellidos</td>
+                            <td>Direccion</td>
+                            <td>Telefono</td>
+                            <td>Edad</td>
+                            <td>Altura</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbAgenda"></tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
