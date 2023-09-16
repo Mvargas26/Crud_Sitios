@@ -136,4 +136,11 @@ $(document).ready(function () {
             );
     });//fin click a editar
 
+    $(document).click('#btnLimpiar',function (e) { 
+
+        $('#agendaForm').trigger('reset');//reseta el formulario, sea borra los campos
+        deseaEditar = false;
+        e.preventDefault();
+
+    });
 });//fin document.ready
