@@ -21,6 +21,6 @@ if (isset($_POST['nombre'])) {
        die('Fallo Insert');
     }
 
-   // echo 'Contacto Agregado';
+    echo 'Contacto Agregado';
 };
 ?>

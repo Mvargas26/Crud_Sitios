@@ -1,9 +1,9 @@
 <?php
 include('../App/conexionMySQL.php');
 
-if (isset($_POST['contactEditar'])) {
+if (isset($_POST['contacEnFormulario'])) {
 
-    $array = $_POST['contactEditar'];
+    $array = $_POST['contacEnFormulario'];
 
     $nombre = $array[0];
     $apellidos = $array[1];
@@ -22,9 +22,8 @@ if (isset($_POST['contactEditar'])) {
             'direccion' => $row['direccion'],
             'telefono' => $row['telefono'],
             'edad' => $row['edad'],
-            'altura' => $row['altura']
+            'altura' => $row['altura'],
         );
-        
     }
     $jsonString = json_encode($jason[0]);//solo codifica el primer elemento
     echo $jsonString;

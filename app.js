@@ -4,6 +4,7 @@ $(document).ready(function () {
 
     // *** VARIABLES ***
     let deseaEditar = false;
+   
 
 
     //funcion para que en el formulario de buscar verifique x cada letra coincidencias
@@ -27,7 +28,6 @@ $(document).ready(function () {
                     $('#contactoResult').html(template);
                     $('#contactoResult').show();
                 }
-
             })
         }
     })//fin buscar
@@ -40,12 +40,18 @@ $(document).ready(function () {
             direccion: $('#direccion').val(),
             telefono: $('#telefono').val(),
             edad: $('#edad').val(),
-            altura: $('#altura').val()
-        };
+            altura: $('#altura').val(),
 
+            salvarID:$('#salvarID').val() //viene del input oculto en el form
+        };
         //si deseaEditar es false url=Backend/agregarContacto.php sino url=Backend/editarContacto.php
         let url = deseaEditar === false ? 'Backend/agregarContacto.php': 'Backend/editarContacto.php';
-
+        // if (deseaEditar) {
+        //     url = 'Backend/editarContacto.php';
+        // }else{
+        //     url ='Backend/agregarContacto.php';
+        // }
+        
         $.post(url, datosPost,
             function (response) {
                 listarContactos();// una ves que inserto, cargamos la tabla grande d enuevo
@@ -82,7 +88,7 @@ $(document).ready(function () {
                     </tr>`
                 });
 
-                //selecciono el elemento #contactoResult que es un car y lo lleno con esta plantilla
+                //selecciono el elemento #contactoResult que es un card y lo lleno con esta plantilla
                 $('#tbAgenda').html(template);
                 $('#tbAgenda').show();
             }
@@ -110,10 +116,10 @@ $(document).ready(function () {
         let elemento = $(this)[0].parentElement.parentElement;
         $nombreEditar = $(elemento).attr('contactNombre');
         $apellidoEditar = $(elemento).attr('contactApellido');
-        let contactEditar = [$nombreEditar, $apellidoEditar];
+        let contacEnFormulario = [$nombreEditar, $apellidoEditar];
 
             $.post('Backend/obtenerContactoSolo.php',
-                {contactEditar},
+                {contacEnFormulario},
                 function (response) {
                     const contactoEditar = JSON.parse(response);
                     $('#nombre').val(contactoEditar.nombre);
@@ -123,6 +129,8 @@ $(document).ready(function () {
                     $('#edad').val(contactoEditar.edad);
                     $('#altura').val(contactoEditar.altura);
 
+                    $('#salvarID').val(contactoEditar.nombre+'&'+contactoEditar.apellidos);//viene del input oculto en el form
+                    
                     deseaEditar=true; //ya dio clic en un editar
                 }
             );

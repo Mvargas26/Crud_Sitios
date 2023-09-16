@@ -1,6 +1,7 @@
 <?php
 include('../App/conexionMySQL.php');
 
+
 if (isset($_POST['nombre'])) {
     
     $nombre = $_POST['nombre'];
@@ -9,10 +10,11 @@ if (isset($_POST['nombre'])) {
     $telefono = $_POST['telefono'];
     $edad = $_POST['edad'];
     $altura = $_POST['altura'];
+   $salvarID=explode("&",$_POST['salvarID']);
 
-
-    $query = "INSERT INTO `agenda` (`nombre`, `apellidos`, `direccion`, `telefono`, `edad`, `altura`)
-     VALUES ('$nombre', '$apellidos', '$direccion', '$telefono', '$edad', '$altura');";
+   $query = " UPDATE `agenda` SET `nombre` = '$nombre', `apellidos`= '$apellidos', `direccion`= '$direccion', `telefono`= '$telefono'
+   , `edad`= '$edad', `altura`= '$altura' WHERE `nombre` = '$salvarID[0]' AND `apellidos` = '$salvarID[1]'; ";
+    
 
     echo $query;
     $result = mysqli_query($connection,$query);
@@ -21,7 +23,6 @@ if (isset($_POST['nombre'])) {
        die('Fallo Insert');
     }
 
-   // echo 'Contacto Agregado';
-};
+    echo 'Contacto Editado';
+ };
 ?>
-?
