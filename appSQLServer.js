@@ -73,8 +73,9 @@ $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "Backend/listarContactos.php",
-            data:conexionElegida,
+            data:{conexionElegida},
             success: function (response) {
+                //console.log(response);
                 let contactos = JSON.parse(response);
                 let template = '';
                 contactos.forEach(contacto => {
