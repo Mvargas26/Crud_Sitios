@@ -5,10 +5,12 @@ $(document).ready(function () {
     // *** VARIABLES ***
     let deseaEditar = false;
     let conexionElegida = 'SQLServer';  
+
+    // *** fUNCIONES Y eVENTOS ***
     //funcion para que en el formulario de buscar verifique x cada letra coincidencias
     $("#search").on("input", function(e) {
         var searchTerm = $(this).val().trim();
-    
+        let conexionElegida = 'SQLServer';
         // Verifica si el campo de búsqueda está vacío
         if (searchTerm === "") {
           $("#contactoResult").hide(); // Oculta el contenedor si está vacío
@@ -19,15 +21,15 @@ $(document).ready(function () {
                 $.ajax({
                     url: 'App/buscar.php',
                     type: 'POST',
-                    data: { resultadoBusqueda },
+                    data: { 
+                        resultadoBusqueda:resultadoBusqueda,
+                        param2:conexionElegida},                   
                     success: function (response) {
-                        //console.log(response);
                         let contactos = JSON.parse(response);
                         let template = '';
                         contactos.forEach(contacto => {
                             template += `<li>${contacto.nombre}</li>`
                         });
-    
                         //selecciono el elemento #contactoResult que es un car y lo lleno con esta plantilla
                         $('#contactoResult').html(template);
                         $('#contactoResult').show();
@@ -39,6 +41,7 @@ $(document).ready(function () {
 
     //Capturando evento submit del formulario agendaForm
     $('#agendaForm').submit(function (e) {
+        let conexionElegida = 'SQLServer';  
         const datosPost = {
             nombre: $('#nombre').val(),
             apellidos: $('#apellidos').val(),
@@ -47,7 +50,8 @@ $(document).ready(function () {
             edad: $('#edad').val(),
             altura: $('#altura').val(),
 
-            salvarID:$('#salvarID').val() //viene del input oculto en el form
+            salvarID:$('#salvarID').val(), //viene del input oculto en el form
+            conexionElegida:conexionElegida
         };
         //si deseaEditar es false url=Backend/agregarContacto.php sino url=Backend/editarContacto.php
         let url = deseaEditar === false ? 'Backend/agregarContacto.php': 'Backend/editarContacto.php';
@@ -59,8 +63,9 @@ $(document).ready(function () {
         
         $.post(url, datosPost,
             function (response) {
-                listarContactos();// una ves que inserto, cargamos la tabla grande d enuevo
-                $('#agendaForm').trigger('reset');//reseta el formulario, sea borra los campos
+                console.log(response);
+                //listarContactos();// una ves que inserto, cargamos la tabla grande d enuevo
+                //$('#agendaForm').trigger('reset');//reseta el formulario, sea borra los campos
             }
         );
 
