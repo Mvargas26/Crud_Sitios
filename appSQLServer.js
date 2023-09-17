@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     // *** VARIABLES ***
     let deseaEditar = false;
-       
+    let conexionElegida = 'SQLServer';  
     //funcion para que en el formulario de buscar verifique x cada letra coincidencias
     $("#search").on("input", function(e) {
         var searchTerm = $(this).val().trim();
@@ -69,9 +69,11 @@ $(document).ready(function () {
     });//fn submit form
 
     function listarContactos() {
+        let conexionElegida = 'SQLServer';  
         $.ajax({
             type: "GET",
             url: "Backend/listarContactos.php",
+            data:conexionElegida,
             success: function (response) {
                 let contactos = JSON.parse(response);
                 let template = '';
