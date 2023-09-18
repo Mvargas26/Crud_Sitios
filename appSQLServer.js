@@ -63,9 +63,8 @@ $(document).ready(function () {
         
         $.post(url, datosPost,
             function (response) {
-                console.log(response);
-                //listarContactos();// una ves que inserto, cargamos la tabla grande d enuevo
-                //$('#agendaForm').trigger('reset');//reseta el formulario, sea borra los campos
+                listarContactos();// una ves que inserto, cargamos la tabla grande d enuevo
+                $('#agendaForm').trigger('reset');//reseta el formulario, sea borra los campos
             }
         );
 
@@ -109,11 +108,12 @@ $(document).ready(function () {
     };//fn listarContactos
 
     $(document).on('click', '.btnEliminarContacto', function () {
+        let conexionElegida = 'SQLServer';
         if (confirm('Esta seguro que desea eliminar este Contacto?')) {
             let elemento = $(this)[0].parentElement.parentElement;
             $nombreBorrar = $(elemento).attr('contactNombre');
             $apellidoBorrar = $(elemento).attr('contactApellido');
-            let contactBorrar = [$nombreBorrar, $apellidoBorrar];
+            let contactBorrar = [$nombreBorrar, $apellidoBorrar,conexionElegida];
 
             $.post('Backend/borrarContacto.php',
                 { contactBorrar },
@@ -121,28 +121,31 @@ $(document).ready(function () {
                     listarContactos();
                 }
             );
-
         }
     });//fin click a eliminar
 
     $(document).on('click', '.editContactoItem', function () {
+        let conexionElegida = 'SQLServer';  
         let elemento = $(this)[0].parentElement.parentElement;
         $nombreEditar = $(elemento).attr('contactNombre');
         $apellidoEditar = $(elemento).attr('contactApellido');
         let contacEnFormulario = [$nombreEditar, $apellidoEditar];
 
             $.post('Backend/obtenerContactoSolo.php',
-                {contacEnFormulario},
+                {contacEnFormulario:contacEnFormulario,
+                    conexionElegida:conexionElegida},
                 function (response) {
+                    //console.log(response);
                     const contactoEditar = JSON.parse(response);
-                    $('#nombre').val(contactoEditar.nombre);
-                    $('#apellidos').val(contactoEditar.apellidos);
-                    $('#direccion').val(contactoEditar.direccion);
-                    $('#telefono').val(contactoEditar.telefono);
-                    $('#edad').val(contactoEditar.edad);
-                    $('#altura').val(contactoEditar.altura);
+                    //console.log(contactoEditar[0].nombre);
+                    $('#nombre').val(contactoEditar[0].nombre);
+                    $('#apellidos').val(contactoEditar[0].apellidos);
+                    $('#direccion').val(contactoEditar[0].direccion);
+                    $('#telefono').val(contactoEditar[0].telefono);
+                    $('#edad').val(contactoEditar[0].edad);
+                    $('#altura').val(contactoEditar[0].altura);
 
-                    $('#salvarID').val(contactoEditar.nombre+'&'+contactoEditar.apellidos);//viene del input oculto en el form
+                    $('#salvarID').val(contactoEditar[0].nombre+'&'+contactoEditar[0].apellidos);//viene del input oculto en el form
                     
                     deseaEditar=true; //ya dio clic en un editar
                 }
